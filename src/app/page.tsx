@@ -18,9 +18,10 @@ export default function HomePage() {
 
   useEffect(() => {
     loadChaptersData()
-      .then(setChapters)
+      .then((data) => setChapters(data))
       .catch((err) => console.error("Error loading chapters:", err));
   }, [setChapters]);
+
 
   const filteredChapters = chapters
     .filter((chapter) => {
