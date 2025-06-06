@@ -1,35 +1,12 @@
 import { create } from "zustand";
+import { Chapter } from "@/types"; // ✅ not RawChapter
 
-export type Chapter = {
-  id: number;
-  name: string;
-  subject: string;
-  status: string;
-};
-
-export type Filter = {
-  subject: string | null;
-  status: string | null;
-};
-
-type Store = {
+interface ChaptersState {
   chapters: Chapter[];
-  setChapters: (data: Chapter[]) => void;
+  setChapters: (chapters: Chapter[]) => void;
+}
 
-  filter: Filter;
-  setFilter: (filter: Partial<Filter>) => void;
-};
-
-export const useChaptersStore = create<Store>((set) => ({
+export const useChaptersStore = create<ChaptersState>((set) => ({
   chapters: [],
-  setChapters: (data) => set({ chapters: data }),
-
-  filter: { subject: null, status: null },
-  setFilter: (partialFilter) =>
-    set((state) => ({
-      filter: {
-        ...state.filter,
-        ...partialFilter,
-      },
-    })),
+  setChapters: (chapters) => set({ chapters }),
 }));
