@@ -1,3 +1,4 @@
+// src/lib/loadChapters.ts
 import { Chapter } from "@/types";
 
 export async function loadChaptersData(): Promise<Chapter[]> {
@@ -7,17 +8,15 @@ export async function loadChaptersData(): Promise<Chapter[]> {
     throw new Error("Failed to load chapters data");
   }
 
-  const raw = await res.json();
+  const rawChapters: any[] = await res.json();
 
-  const chapters: Chapter[] = raw.map((item: any, idx: number) => ({
-    id: String(idx),
+  return rawChapters.map((item, index) => ({
+    id: String(index),
     name: item.chapter,
     subject: item.subject,
+    status: item.status === "Completed" ? "completed" : "incomplete",
+    isWeakChapter: item.isWeakChapter,
     class: item.class,
     unit: item.unit,
-    isWeakChapter: Boolean(item.isWeakChapter),
-    status: item.status?.toLowerCase() === "completed" ? "completed" : "incomplete",
   }));
-
-  return chapters;
 }
