@@ -3,7 +3,7 @@ export type Chapter = {
   name: string;
   subject: string;
   status: "completed" | "incomplete";
-  isWeakChapter: boolean;
-  class: string;
-  unit: string;
+  class?: string;
+  unit?: string;
+  isWeakChapter?: boolean;
 };

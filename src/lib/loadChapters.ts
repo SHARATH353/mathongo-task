@@ -1,4 +1,3 @@
-// src/lib/loadChapters.ts
 import { Chapter } from "@/types";
 
 export async function loadChaptersData(): Promise<Chapter[]> {
@@ -15,8 +14,8 @@ export async function loadChaptersData(): Promise<Chapter[]> {
     name: item.chapter,
     subject: item.subject,
     status: item.status === "Completed" ? "completed" : "incomplete",
-    isWeakChapter: item.isWeakChapter,
     class: item.class,
     unit: item.unit,
+    isWeakChapter: Boolean(item.isWeakChapter),
   }));
 }

@@ -3,18 +3,18 @@
 import { useEffect, useState } from "react";
 import { loadChaptersData } from "@/lib/loadChapters";
 import { useChaptersStore } from "@/store/useChaptersStore";
-import { Chapter } from "@/types";
 import ChapterCard from "@/components/ChapterCard";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { ModeToggle } from "@/components/ModeToggle";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 export default function HomePage() {
   const setChapters = useChaptersStore((state) => state.setChapters);
   const chapters = useChaptersStore((state) => state.chapters);
   const [filter, setFilter] = useState<"all" | "completed" | "incomplete">("all");
   const [search, setSearch] = useState("");
-  const [sortBy, setSortBy] = useState<"name" | "status">("name");
+  const [sort, setSort] = useState<"name" | "status">("name");
 
   useEffect(() => {
     loadChaptersData()
@@ -36,14 +36,15 @@ export default function HomePage() {
       return matchesStatus && matchesSearch;
     })
     .sort((a, b) => {
-      if (sortBy === "name") return a.name.localeCompare(b.name);
-      if (sortBy === "status") return a.status.localeCompare(b.status);
-      return 0;
+      if (sort === "name") {
+        return a.name.localeCompare(b.name);
+      }
+      return a.status.localeCompare(b.status);
     });
 
   return (
     <main className="p-4">
-      <div className="flex flex-col sm:flex-row justify-between items-center mb-4 gap-2">
+      <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">MathonGo Chapters</h1>
         <ModeToggle />
       </div>
@@ -56,20 +57,21 @@ export default function HomePage() {
         </TabsList>
       </Tabs>
 
-      <div className="flex flex-col sm:flex-row gap-4 mb-4">
+      <div className="flex gap-2 mb-4">
         <Input
           placeholder="Search chapters..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <select
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value as "name" | "status")}
-          className="px-3 py-2 border rounded-md bg-background text-foreground"
-        >
-          <option value="name">Sort by Name</option>
-          <option value="status">Sort by Status</option>
-        </select>
+        <Select defaultValue="name" onValueChange={(val) => setSort(val as typeof sort)}>
+          <SelectTrigger className="w-[160px]">
+            <SelectValue placeholder="Sort by" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="name">Sort by Name</SelectItem>
+            <SelectItem value="status">Sort by Status</SelectItem>
+          </SelectContent>
+        </Select>
       </div>
 
       {filteredChapters.length === 0 ? (
