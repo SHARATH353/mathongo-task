@@ -38,7 +38,7 @@ export default function Sidebar() {
                     unit: [],
                     status: "all",
                     weakOnly: false,
-                    sortBy: null,
+                    sortBy: undefined, // ✅ FIXED here
                   })
                 }
               >

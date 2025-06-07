@@ -1,9 +1,9 @@
 "use client";
 
+import React from "react";
 import { Chapter } from "@/types";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
 import {
   BookOpen,
   Flask,
@@ -13,7 +13,7 @@ import {
   Clock,
 } from "phosphor-react";
 
-const subjectIcons: Record<string, JSX.Element> = {
+const subjectIcons: Record<string, React.ReactElement> = {
   Physics: <BookOpen className="w-5 h-5 text-orange-500" />,
   Chemistry: <Flask className="w-5 h-5 text-green-500" />,
   Mathematics: <MathIcon className="w-5 h-5 text-blue-500" />,
@@ -35,7 +35,9 @@ export default function ChapterCard({ chapter }: { chapter: Chapter }) {
       <CardContent className="p-4">
         {/* Chapter Name + Icon */}
         <div className="flex items-center gap-2 mb-2">
-          {subjectIcons[chapter.subject] ?? <BookOpen className="w-5 h-5 text-muted-foreground" />}
+          {subjectIcons[chapter.subject] ?? (
+            <BookOpen className="w-5 h-5 text-muted-foreground" />
+          )}
           <h2 className="text-lg font-semibold">{chapter.name}</h2>
         </div>
 
