@@ -1,3 +1,5 @@
+// src/lib/loadChapters.ts
+
 import { Chapter } from "@/types";
 
 type RawChapter = {
@@ -7,6 +9,7 @@ type RawChapter = {
   class: string;
   unit: string;
   isWeakChapter: boolean;
+  yearWiseQuestionCount: Record<string, number>;
 };
 
 export async function loadChaptersData(): Promise<Chapter[]> {
@@ -25,6 +28,7 @@ export async function loadChaptersData(): Promise<Chapter[]> {
     class: item.class,
     unit: item.unit,
     isWeakChapter: item.isWeakChapter,
+    yearWiseQuestionCount: item.yearWiseQuestionCount,
   }));
 
   return chapters;
