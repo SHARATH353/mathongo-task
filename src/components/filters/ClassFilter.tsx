@@ -6,7 +6,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 export default function ClassFilter() {
   const { filteredChapters, setFilters } = useChaptersStore();
 
-  const classes = [...new Set(filteredChapters.map((c) => c.class))];
+  const classes = Array.from(new Set(filteredChapters.map((c) => c.class)));
 
   return (
     <Select
@@ -14,11 +14,11 @@ export default function ClassFilter() {
         setFilters({ class: val === "all" ? [] : [val] })
       }
     >
-      <SelectTrigger className="w-[120px]">
+      <SelectTrigger className="w-[140px]">
         <SelectValue placeholder="Class" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="all">All</SelectItem>
+        <SelectItem value="all">All Classes</SelectItem>
         {classes.map((cls) => (
           <SelectItem key={cls} value={cls}>
             {cls}

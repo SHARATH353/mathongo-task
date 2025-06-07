@@ -7,11 +7,7 @@ export default function SortDropdown() {
   const { setFilters } = useChaptersStore();
 
   return (
-    <Select
-      onValueChange={(val) =>
-        setFilters({ sortBy: val as "name" | "status" })
-      }
-    >
+    <Select onValueChange={(val) => setFilters({ sortBy: val as "name" | "status" })}>
       <SelectTrigger className="w-[120px]">
         <SelectValue placeholder="Sort By" />
       </SelectTrigger>

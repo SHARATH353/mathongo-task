@@ -6,7 +6,7 @@ import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@
 export default function UnitFilter() {
   const { filteredChapters, setFilters } = useChaptersStore();
 
-  const units = [...new Set(filteredChapters.map((c) => c.unit))];
+  const units = Array.from(new Set(filteredChapters.map((c) => c.unit)));
 
   return (
     <Select
@@ -14,11 +14,11 @@ export default function UnitFilter() {
         setFilters({ unit: val === "all" ? [] : [val] })
       }
     >
-      <SelectTrigger className="w-[120px]">
+      <SelectTrigger className="w-[140px]">
         <SelectValue placeholder="Unit" />
       </SelectTrigger>
       <SelectContent>
-        <SelectItem value="all">All</SelectItem>
+        <SelectItem value="all">All Units</SelectItem>
         {units.map((unit) => (
           <SelectItem key={unit} value={unit}>
             {unit}
