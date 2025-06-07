@@ -10,15 +10,13 @@ import {
 } from "@/components/ui/select";
 
 export default function SortDropdown() {
-  const { filters, setFilters } = useChaptersStore();
+  const { setFilters } = useChaptersStore();
 
   return (
-    <Select
-      onValueChange={(val) =>
-        setFilters({ sortBy: val as "name" | "status" })
-      }
-    >
-      <SelectTrigger className="w-[120px] ml-auto">
+    <Select onValueChange={(value) =>
+      setFilters({ sortBy: value as "name" | "status" })
+    }>
+      <SelectTrigger className="w-[120px]">
         <SelectValue placeholder="Sort By" />
       </SelectTrigger>
       <SelectContent>
